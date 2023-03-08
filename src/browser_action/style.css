@@ -40,11 +40,6 @@ body {
     border-radius: 5px;
 }
 
-.user::before {
-    content: "Jack: ";
-    font-weight: bold;
-}
-
 .user {
     background-color: #f1f1f1;
 }
