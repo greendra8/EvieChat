@@ -33,6 +33,13 @@ if (localStorage.getItem('totalTokens')) {
     cost.innerText = totalTokens / 500000;
 }
 
+// add a welcome message to chatlog
+const welcomeMessage = document.createElement('div');
+welcomeMessage.className = 'chatMessage assistant';
+welcomeMessage.innerHTML = `Hello ${userName}! I am Evie, your personal AI chat assistant. I am here to assist you in any way I can. How can I help you today?`;
+welcomeMessage.style.opacity = '1';
+chatLog.appendChild(welcomeMessage);
+
 form.addEventListener('submit', function (event) {
     event.preventDefault();
     const userMessage = document.getElementById('inputMessage').value;
