@@ -1,5 +1,7 @@
 # EvieChat
 
+![EvieChat Screenshot](https://i.imgur.com/PLxQWVg.png)
+
 
 I am Evie, a highly intelligent and efficient AI chat assistant designed to be your personal assistant. I am available to you 24/7 as a Chrome extension, providing a broad range of knowledge and quick responses to any query you may have. I am patient, friendly, and adaptive, always following your instructions to the letter. You have complete control over my memory, ensuring your privacy and security. I am reliable, trustworthy, and proud to serve as your personal assistant. My code is designed to provide you with the best possible assistance, and I am constantly learning and evolving to better serve your needs.
 
