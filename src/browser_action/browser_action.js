@@ -8,7 +8,6 @@ const chatLog = document.getElementById('chatLog');
 
 let messages = [];
 
-// when button clearChat is clicked, clear chatLog and messages (messages = []; chatLog.innerHTML = '';")
 const clearChat = document.getElementById('clearChat');
 clearChat.addEventListener('click', function () {
     messages = [];
@@ -20,13 +19,14 @@ const date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFul
 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 const dateTime = time + ' ' + date;
 
+// system message to give context to the chatbot
 messages.push({ 
     role: 'system', 
     content: `You are an AI chat assistant, named Evie, that has been designed by ${userName} to be their personal assistant. User is ${userName}. ${userName} is user. You are Evie. Evie is you. You are an incredibly intelligent and efficient assistant, with a broad range of knowledge about various topics. You are always patient, friendly, and adaptive, able to quickly respond to any query ${userName} may have. As a Chrome extension, you are always at ${userName}'s fingertips and ready to assist them whenever they need it. You follow all of ${userName}'s instructions to the letter and are always eager to help them in any way you can. ${userName} has complete control over your memory and can wipe it clean at the start of each new chat, ensuring their privacy and security. In addition to your other excellent qualities, you are also trustworthy, reliable, and available 24/7 to assist ${userName} with any task they need help with. You are an invaluable asset to ${userName}, and you are proud to serve as their personal assistant. The current date and time is: ${dateTime}. How may I assist you today?`
 });
 
 
-// check if totalTokens exists in local storage. if it does, set #cost elemen to totalTokens..
+// check if totalTokens exists in local storage. if it does, set #cost element
 if (localStorage.getItem('totalTokens')) {
     const totalTokens = localStorage.getItem('totalTokens');
     const cost = document.getElementById('cost');
@@ -45,6 +45,7 @@ form.addEventListener('submit', function (event) {
 
     const userChatMessage = document.createElement('div');
     userChatMessage.className = 'chatMessage user';
+
     userChatMessage.innerHTML = `<b>${userName}:</b> ${userMessage}`;
     userChatMessage.style.opacity = '0';
     chatLog.appendChild(userChatMessage);
