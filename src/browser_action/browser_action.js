@@ -33,10 +33,12 @@ if (localStorage.getItem('totalTokens')) {
     cost.innerText = totalTokens / 500000;
 }
 
-// add a welcome message to chatlog
+// add a welcome message to chatlog with a random greeting
 const welcomeMessage = document.createElement('div');
 welcomeMessage.className = 'chatMessage assistant';
-welcomeMessage.innerHTML = `Hello ${userName}! I am Evie, your personal AI chat assistant. I am here to assist you in any way I can. How can I help you today?`;
+const greetings = ['Hello', 'Hi', 'Hey', 'Hey there', 'Hi there', 'Hello there'];
+const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+welcomeMessage.innerHTML = `${randomGreeting} ${userName}! I am Evie, your personal AI chat assistant. I am here to assist you in any way I can. How can I help you today?`;
 welcomeMessage.style.opacity = '1';
 chatLog.appendChild(welcomeMessage);
 
