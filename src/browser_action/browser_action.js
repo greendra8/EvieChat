@@ -1,5 +1,4 @@
-
-const apiKey = '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';
+const apiKey = config.MY_KEY;
 const url = 'https://api.openai.com/v1/chat/completions';
 const model = 'gpt-3.5-turbo';
 
