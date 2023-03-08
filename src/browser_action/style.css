@@ -1,0 +1,205 @@
+* {
+    font-family: monospace;
+    margin: 0;
+}
+
+body {
+    min-height: 400px;
+    min-width: 600px;
+}
+
+#header {
+    padding: 5px;
+    background-color: #eee;
+}
+
+#title {
+    margin: 0;
+    display: inline;
+}
+
+#logo {
+    height: 30px;
+    top: 3px;
+    position: relative;
+}
+
+#cost::before {
+    content: "$"
+}
+
+#cost {
+    display: inline;
+}
+
+.chatMessage {
+    margin: 5px 0;
+    padding: 5px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.user::before {
+    content: "Jack: ";
+    font-weight: bold;
+}
+
+.user {
+    background-color: #f1f1f1;
+}
+
+.assistant::before {
+    content: "Evie: ";
+    font-weight: bold;
+}
+
+.assistant {
+    background-color: #cdeaff;
+}
+
+#chatBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+#chatLog {
+    height: 344px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    background-color: #eee;
+}
+
+form * {
+    margin: 0 2px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 5px;
+    margin-right: 5px;
+    width: 100%;
+    word-break: break-word;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button[type="submit"] {
+    margin-left: auto;
+}
+
+code::before {
+    /* new line */
+    content: "\A";
+}
+
+code {
+    background-color: #eee;
+    border: 1px solid #a4a4a4;
+    display: block;
+    margin: 2px;
+    padding: 2px;
+    font-style: italic;
+}
+
+button {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+button:active {
+    background-color: #ddd;
+}
+
+
+::-webkit-scrollbar {
+    width: 5px;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #8a8a8a;
+}
+
+.lds-ellipsis,
+.lds-ellipsis div {
+    box-sizing: border-box;
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    margin-left: -6px;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: -3.4px;
+    width: 4.66667px;
+    height: 4.66667px;
+    border-radius: 50%;
+    background: #393e43;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 3px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+    left: 3px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 12px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 21px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(9px, 0);
+    }
+}

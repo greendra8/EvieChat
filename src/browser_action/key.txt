@@ -1,0 +1,2 @@
+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
+messages.push({ role: 'system', content: 'You are an AI who must summarise any input you are given into bullet points' });

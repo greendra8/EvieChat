@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>ChatBox</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="header">
+		<img id="logo" src="/icons/icon128.png" alt="logo">
+		<h1 id="title">EvieChat</h1>
+		<small id="cost">0.000000</small>
+	</div>
+	<div id="chatBar">
+		<form id="chatForm">
+			<!-- <label for="inputMessage">Message:</label> -->
+			<input type="text" id="inputMessage" name="message" required autocomplete="off">
+			<br>
+			<button type="submit">Submit</button>
+			<button type="button" id="clearChat">Reset</button>
+		</form>
+	</div>
+	<div id="chatLog"></div>
+	<script src="browser_action.js"></script>
+</body>
+
+</html>
