@@ -61,7 +61,7 @@ body {
 }
 
 #chatLog {
-    height: 344px;
+    height: 299px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 5px;
