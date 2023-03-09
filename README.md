@@ -15,17 +15,17 @@ If you would like to use Evie yourself, the setup is simple.
 
 1. Download and unzip the repository
 3. Get your OpenAI API key from [here](https://platform.openai.com/account/api-keys)
-2. Create a file inside src/browser_action/ called `config.js`
-4. Add the following code to the file:
+3. Enter your name and API key into `src/browser_action/config_template.js`:
 ```javascript 
 var config = {
     NAME: 'YOUR_NAME',
     MY_KEY : 'YOUR_API_KEY'
   }
 ```
-4. Go to your browser extensions page
-5. Enable developer mode
-6. Drag the root folder (EvieChat-master) onto the page
+4. Rename `config_template.js` to `config.js`
+5. Go to your browser extensions page
+6. Enable developer mode
+7. Drag the root folder (EvieChat-master) onto the page
 
 If you would like to customise things further, you can edit the `browser_action.js` file.
 
