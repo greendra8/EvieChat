@@ -4,7 +4,7 @@
 
 Evie is a simple ChatGPT chrome extension assistant. It uses the OpenAI API to handle requests, and serves users through a simple and clean interface.
 
-A Reset chat button exists as well as a way to track how much you have spent.
+Users can also clear the chat history, as well as keep track of API expenditure.  
 
 If message chains get longer than 25 messages, the first messages will be removed, 2 at a time. This can be changed by the developer in `browser_action.js`. The initial system message is always kept so that the bot can remain on task.
 
