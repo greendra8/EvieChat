@@ -15,7 +15,6 @@ chrome.extension.onMessage.addListener(
 // This function will be called when the user clicks on the context menu item
 function summariseText(info, tab) {
   
-  browser.browserAction.openPopup();
   // create an alert with the selected text
   alert("Selected text: " + info.selectionText);
 }
@@ -23,8 +22,8 @@ function summariseText(info, tab) {
 // This will create a context menu item with the title "Summarise Text"
 // It will appear only when some text is selected (contexts: ["selection"])
 // It will call the summariseText function when clicked (onclick: summariseText)
-chrome.contextMenus.create({
-  title: "Summarise Text",
-  contexts: ["selection"],
-  onclick: summariseText
-});
+// chrome.contextMenus.create({
+//   title: "Summarise Text",
+//   contexts: ["selection"],
+//   onclick: summariseText
+// });
