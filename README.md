@@ -13,10 +13,10 @@ Evie is subject to all of the usual bias, limitations, and hallucinations of the
 ## Installation
 If you would like to use Evie yourself, the setup is simple.
 
-1. Download and unzip the repository
+1. Download latest release and unzip
 2. Go to your browser extensions page
 3. Enable developer mode
-4. Drag the root folder (EvieChat-master) onto the page
+4. Drag the folder inside the unzipped folder onto the page
 
 If you would like to customise things further, you can edit the `browser_action.js` file.
 
