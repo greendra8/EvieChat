@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<script type='text/javascript' src='config.js'></script>
+
 <head>
 	<title>ChatBox</title>
 	<link rel="stylesheet" href="style.css">
@@ -8,13 +8,17 @@
 
 <body>
 	<div id="settings">
-		<h2 id="settingsTitle">Settings</h2>
-		<button id="closeSettings">X</button>
+		<div id="settingsHeader">
+			<h2 id="settingsTitle">Settings</h2>
+			<small id="version"></small>
+			<button id="closeSettings">X</button>
+		</div>
 		<form id="settingsForm">
 			<label for="inputName">Display Name:</label>
 			<input type="text" id="inputName" name="name" required autocomplete="off">
 			<br>
-			<label for="inputKey"><a href="https://platform.openai.com/account/api-keys" target="_blank">API Key:</a></label>
+			<label for="inputKey"><a href="https://platform.openai.com/account/api-keys" target="_blank">API
+					Key:</a></label>
 			<input type="text" id="inputAPIKey" name="key" required autocomplete="off">
 			<br>
 			<button type="submit">Submit</button>
@@ -24,19 +28,17 @@
 		<img id="logo" src="/icons/icon128.png" alt="logo">
 		<h1 id="title">EvieChat</h1>
 		<small id="cost">0.000000</small>
-		<!-- settings button -->
 		<button id="openSettings">Settings</button>
+	</div>
+	<div id="chatLog">
 	</div>
 	<div id="chatBar">
 		<form id="chatForm">
-			<!-- <label for="inputMessage">Message:</label> -->
 			<input type="text" id="inputMessage" name="message" required autocomplete="off">
 			<br>
 			<button type="submit">Submit</button>
 			<button type="button" id="clearChat">Reset</button>
 		</form>
-	</div>
-	<div id="chatLog">
 	</div>
 	<script src="browser_action.js"></script>
 </body>

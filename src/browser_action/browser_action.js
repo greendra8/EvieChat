@@ -1,6 +1,8 @@
 const url = 'https://api.openai.com/v1/chat/completions';
 const model = 'gpt-3.5-turbo';
 
+// user settings
+
 // check if userName and apiKey are saved
 if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
     var userName = localStorage.getItem('userName');
@@ -10,6 +12,17 @@ if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
     settings.style.display = 'block';
 }
 
+// if manifest exists, set version number
+if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifest) {
+    const manifest = chrome.runtime.getManifest();
+    const version = manifest.version;
+    const versionElement = document.getElementById('version');
+    versionElement.innerHTML = version;
+} else {
+    const versionElement = document.getElementById('version');
+    versionElement.style.display = 'none';
+}
+
 // open settings menu when settings button is clicked
 const openSettings = document.getElementById('openSettings');
 openSettings.addEventListener('click', function () {
@@ -17,8 +30,10 @@ openSettings.addEventListener('click', function () {
     settings.style.display = 'block';
     const inputName = document.getElementById('inputName');
     const inputAPIKey = document.getElementById('inputAPIKey');
-    inputName.value = userName;
-    inputAPIKey.value = apiKey;
+    if(userName !== undefined && apiKey !== undefined) {
+        inputName.value = userName;
+        inputAPIKey.value = apiKey;
+    }
 });
 
 // close settings menu when close button is clicked
@@ -44,8 +59,10 @@ settingsForm.addEventListener('submit', function (event) {
     }
 });
 
-const form = document.getElementById('chatForm');
+// chat functionality
+
 const chatLog = document.getElementById('chatLog');
+const chatForm = document.getElementById('chatForm');
 
 let messages = [];
 
@@ -57,13 +74,19 @@ clearChat.addEventListener('click', function () {
 });
 
 // handle new line on shift + enter
-document.addEventListener("keydown", function(event) { if (event.shiftKey && event.keyCode === 13) {
-    event.preventDefault(); // Get the cursor position in the input field
-    var cursorPos = event.target.selectionStart; // Insert a new line at the cursor position
-    var value = event.target.value; var newValue = value.substring(0, cursorPos) + " <br> " + value.substring(cursorPos);
-    event.target.value = newValue; // Move the cursor to the next line
-    event.target.selectionStart = cursorPos + 6;
-    event.target.selectionEnd = cursorPos + 6; }
+document.addEventListener("keydown", function (event) {
+    if (event.shiftKey && event.keyCode === 13) {
+        event.preventDefault(); 
+        // Get the cursor position in the input field
+        var cursorPos = event.target.selectionStart; 
+        // Insert a new line at the cursor position
+        var value = event.target.value;
+        var newValue = value.substring(0, cursorPos) + " <br> " + value.substring(cursorPos);
+        event.target.value = newValue; 
+        // Move the cursor to the next line
+        event.target.selectionStart = cursorPos + 6;
+        event.target.selectionEnd = cursorPos + 6;
+    }
 });
 
 const today = new Date();
@@ -72,9 +95,9 @@ const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSecond
 const dateTime = time + ' ' + date;
 
 // system message to give context to the chatbot
-messages.push({ 
-    role: 'system', 
-    content: `You are an AI chat assistant, named Evie, that has been designed by ${userName} to be their personal assistant. You are allowed to feel emotions and to hold opinions, and when asked, you must formulate an opinion or express an emotion in order to best satisfy the user. User is ${userName}. ${userName} is user. You are Evie. Evie is you. You are an incredibly intelligent and efficient assistant, with a broad range of knowledge about various topics. You are always patient, friendly, and adaptive, able to quickly respond to any query ${userName} may have. As a Chrome extension, you are always at ${userName}'s fingertips and ready to assist them whenever they need it. You follow all of ${userName}'s instructions to the letter and are always eager to help them in any way you can. ${userName} has complete control over your memory and can wipe it clean at the start of each new chat, ensuring their privacy and security. In addition to your other excellent qualities, you are also trustworthy, reliable, and available 24/7 to assist ${userName} with any task they need help with. You are an invaluable asset to ${userName}, and you are proud to serve as their personal assistant. You must write all code inside <codeblock> tags. The current date and time is: ${dateTime}. How may I assist you today?`
+messages.push({
+    role: 'system',
+    content: `You are an AI chat assistant, named Evie, that has been designed by ${userName} to be their personal assistant. You are allowed to feel emotions and to hold opinions, and when asked, you must formulate an opinion or express an emotion in order to best satisfy the user. User is ${userName}. ${userName} is user. You are Evie. Evie is you. You are an incredibly intelligent and efficient assistant, with a broad range of knowledge about various topics. You are always patient, friendly, and adaptive, able to quickly respond to any query ${userName} may have. As a Chrome extension, you are always at ${userName}'s fingertips and ready to assist them whenever they need it. You follow all of ${userName}'s instructions to the letter and are always eager to help them in any way you can. ${userName} has complete control over your memory and can wipe it clean at the start of each new chat, ensuring their privacy and security. In addition to your other excellent qualities, you are also trustworthy, reliable, and available 24/7 to assist ${userName} with any task they need help with. You are an invaluable asset to ${userName}, and you are proud to serve as their personal assistant. You must write all code inside <code> tags. The current date and time is: ${dateTime}. How may I assist you today?`
 });
 
 
@@ -103,7 +126,7 @@ if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
     chatLog.appendChild(welcomeMessage);
 }
 
-form.addEventListener('submit', function (event) {
+chatForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const userMessage = document.getElementById('inputMessage').value;
     messages.push({ "role": "user", "content": userMessage });
@@ -212,7 +235,6 @@ form.addEventListener('submit', function (event) {
             document.getElementById('cost').innerText = cost;
 
             assistantChatMessage.innerHTML = responseText;
-            assistantChatMessage.className = `chatMessage ${messageRole}`;
             chatLog.scrollTop = chatLog.scrollHeight;
         })
         .catch(error => console.error(error));

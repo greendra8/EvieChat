@@ -32,8 +32,21 @@ body {
     display: inline;
 }
 
-#settingsTitle {
+#settingsHeader {
     margin: 10px 0 10px 10px;
+}
+
+#settingsTitle {
+    display: inline;
+}
+
+#version {
+    margin: 0;
+    display: inline;
+}
+
+#version::before {
+    content: "v"
 }
 
 #openSettings {
@@ -57,10 +70,19 @@ body {
 }
 
 #settingsForm {
+    /* display inputs stacked, with text aligned to the left */
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     padding: 10px;
+}
 
+#settingsForm label {
+    margin-left: -4px;
+}
+
+#settingsForm input {
+    margin: 5px 0 0 -6px;
 }
 
 #closeSettings {
@@ -135,6 +157,26 @@ button[type="submit"] {
     margin-left: auto;
 }
 
+button {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+button:active, #openSettings:active, #closeSettings:active {
+    background-color: #ddd;
+}
+
+a {
+    color: #2a2af1;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 code::before {
     /* new line */
     content: "\A";
@@ -147,17 +189,6 @@ code {
     margin: 2px;
     padding: 2px;
     font-style: italic;
-}
-
-button {
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 5px;
-}
-
-button:active {
-    background-color: #ddd;
 }
 
 
