@@ -7,10 +7,25 @@
 </head>
 
 <body>
+	<div id="settings">
+		<h2 id="settingsTitle">Settings</h2>
+		<button id="closeSettings">X</button>
+		<form id="settingsForm">
+			<label for="inputName">Display Name:</label>
+			<input type="text" id="inputName" name="name" required autocomplete="off">
+			<br>
+			<label for="inputKey"><a href="https://platform.openai.com/account/api-keys" target="_blank">API Key:</a></label>
+			<input type="text" id="inputAPIKey" name="key" required autocomplete="off">
+			<br>
+			<button type="submit">Submit</button>
+		</form>
+	</div>
 	<div id="header">
 		<img id="logo" src="/icons/icon128.png" alt="logo">
 		<h1 id="title">EvieChat</h1>
 		<small id="cost">0.000000</small>
+		<!-- settings button -->
+		<button id="openSettings">Settings</button>
 	</div>
 	<div id="chatBar">
 		<form id="chatForm">

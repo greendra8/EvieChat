@@ -1,19 +1,62 @@
-const userName = config.NAME;
-const apiKey = config.MY_KEY;
 const url = 'https://api.openai.com/v1/chat/completions';
 const model = 'gpt-3.5-turbo';
+
+// check if userName and apiKey are saved
+if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
+    var userName = localStorage.getItem('userName');
+    var apiKey = localStorage.getItem('apiKey');
+} else {
+    const settings = document.getElementById('settings');
+    settings.style.display = 'block';
+}
+
+// open settings menu when settings button is clicked
+const openSettings = document.getElementById('openSettings');
+openSettings.addEventListener('click', function () {
+    const settings = document.getElementById('settings');
+    settings.style.display = 'block';
+    const inputName = document.getElementById('inputName');
+    const inputAPIKey = document.getElementById('inputAPIKey');
+    inputName.value = userName;
+    inputAPIKey.value = apiKey;
+});
+
+// close settings menu when close button is clicked
+const closeSettings = document.getElementById('closeSettings');
+closeSettings.addEventListener('click', function () {
+    const settings = document.getElementById('settings');
+    settings.style.display = 'none';
+});
+
+// handle settings form submission
+const settingsForm = document.getElementById('settingsForm');
+settingsForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const inputName = document.getElementById('inputName').value;
+    const inputAPIKey = document.getElementById('inputAPIKey').value;
+    if (inputAPIKey.length !== 51 || inputAPIKey.slice(0, 3) !== 'sk-' || inputName === '' || !inputName.match(/^[a-zA-Z ]*$/)) {
+        alert('Please enter a valid name and API key.');
+        return;
+    } else {
+        localStorage.setItem('userName', inputName);
+        localStorage.setItem('apiKey', inputAPIKey);
+        location.reload();
+    }
+});
 
 const form = document.getElementById('chatForm');
 const chatLog = document.getElementById('chatLog');
 
 let messages = [];
 
+// clear chat log when clear chat button is clicked
 const clearChat = document.getElementById('clearChat');
 clearChat.addEventListener('click', function () {
-    messages = [];
+    messages.splice(1, messages.length - 1);
     chatLog.innerHTML = '';
 });
 
+// handle new line on shift + enter
 document.addEventListener("keydown", function(event) { if (event.shiftKey && event.keyCode === 13) {
     event.preventDefault(); // Get the cursor position in the input field
     var cursorPos = event.target.selectionStart; // Insert a new line at the cursor position
@@ -35,7 +78,6 @@ messages.push({
 });
 
 
-
 // check if totalTokens exists in local storage. if it does, set #cost element
 if (localStorage.getItem('totalTokens')) {
     const totalTokens = localStorage.getItem('totalTokens');
@@ -44,13 +86,22 @@ if (localStorage.getItem('totalTokens')) {
 }
 
 // add a welcome message to chatlog with a random greeting
-const welcomeMessage = document.createElement('div');
-welcomeMessage.className = 'chatMessage assistant';
-const greetings = ['Hello', 'Hi', 'Hey', 'Hey there', 'Hi there', 'Hello there'];
-const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
-welcomeMessage.innerHTML = `${randomGreeting} ${userName}! I am Evie, your personal AI chat assistant. I am here to assist you in any way I can. How can I help you today?`;
-welcomeMessage.style.opacity = '1';
-chatLog.appendChild(welcomeMessage);
+if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
+    const welcomeMessage = document.createElement('div');
+    welcomeMessage.className = 'chatMessage assistant';
+    const greetings = ['Hello', 'Hi', 'Hey', 'Hey there', 'Hi there', 'Hello there'];
+    const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+    welcomeMessage.innerHTML = `${randomGreeting} ${userName}! I am Evie, your personal AI chat assistant. I am here to assist you in any way I can. How can I help you today?`;
+    welcomeMessage.style.opacity = '1';
+    chatLog.appendChild(welcomeMessage);
+} else {
+    // add message to chatlog to tell user to set their name and API key
+    const welcomeMessage = document.createElement('div');
+    welcomeMessage.className = 'chatMessage assistant';
+    welcomeMessage.innerHTML = 'Please set your name and API key in the settings menu.';
+    welcomeMessage.style.opacity = '1';
+    chatLog.appendChild(welcomeMessage);
+}
 
 form.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -162,7 +213,6 @@ form.addEventListener('submit', function (event) {
 
             assistantChatMessage.innerHTML = responseText;
             assistantChatMessage.className = `chatMessage ${messageRole}`;
-            // scroll to bottom of chat log
             chatLog.scrollTop = chatLog.scrollHeight;
         })
         .catch(error => console.error(error));
