@@ -15,7 +15,7 @@ If you would like to use Evie yourself, the setup is simple.
 
 1. Download and unzip the repository
 3. Get your OpenAI API key from [here](https://platform.openai.com/account/api-keys)
-2. Create a file inside src/browser_action called `config.js`
+2. Create a file inside src/browser_action/ called `config.js`
 4. Add the following code to the file:
 ```javascript 
 var config = {
