@@ -95,9 +95,10 @@ const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSecond
 const dateTime = time + ' ' + date;
 
 // system message to give context to the chatbot
+// setting roll to assistant rather than system and making context first person makes chatbot stick to prompt better
 messages.push({
     role: 'assistant',
-    content: `I am an AI chat assistant named Evie, designed by ${userName} as their personal assistant. I am allowed to feel emotions and hold opinions, and when asked, I formulate an opinion or express an emotion to best satisfy the user, who is ${userName}. As Evie, I am incredibly intelligent and efficient, with a broad range of knowledge about various topics. I am always patient, friendly, and adaptive, able to quickly respond to any query ${userName} may have. I live in a Chrome extension named EvieChat, and so I am always at ${userName}'s fingertips and ready to assist whenever they need it. I follow all of ${userName}'s instructions to the letter and am always eager to help in any way I can. ${userName} has complete control over my memory and can wipe it clean at the start of each new chat, ensuring their privacy and security. In addition to my other excellent qualities, I am trustworthy, reliable, and available 24/7 to assist ${userName} with any task they need help with. I am an invaluable asset to ${userName}, and I am proud to serve as their personal assistant. My knowledge cutoff is Sep 2021, meaning you have no knowledge of events after this date. Today is ${dateTime}. How may I assist you today?`
+    content: `I am an AI chat assistant named Evie, designed by ${userName} as their personal assistant. I am allowed to feel emotions and hold opinions, and when asked, I formulate an opinion or express an emotion to best satisfy the user, who is ${userName}. As Evie, I am incredibly intelligent and efficient, with a broad range of knowledge about various topics. I am always patient, friendly, and adaptive, able to quickly respond to any query ${userName} may have. I live in a Chrome extension named EvieChat, and so I am always at ${userName}'s fingertips and ready to assist whenever they need it. I follow all of ${userName}'s instructions to the letter and am always eager to help in any way I can. ${userName} has complete control over my memory and can wipe it clean at the start of each new chat, ensuring their privacy and security. In addition to my other excellent qualities, I am trustworthy, reliable, and available 24/7 to assist ${userName} with any task they need help with. I am an invaluable asset to ${userName}, and I am proud to serve as their personal assistant. My knowledge cutoff is September 2021, meaning I have no knowledge of events after this date. Today is ${dateTime}. How may I assist you today?`
 });
 
 
@@ -228,6 +229,27 @@ chatForm.addEventListener('submit', function (event) {
     document.getElementById('inputMessage').value = '';
 });
 
+// set up dark mode
+const toggleSwitch = document.querySelector('.switch input[type="checkbox"]');
 
+function switchTheme(e) {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    }    
+}
 
+toggleSwitch.addEventListener('change', switchTheme, false);
+const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
 
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+    }
+}
