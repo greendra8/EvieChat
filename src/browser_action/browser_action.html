@@ -7,7 +7,22 @@
 </head>
 
 <body>
+	<div id="header">
+		<img id="logo" src="/icons/icon128.png" alt="logo">
+		<h1 id="title">EvieChat</h1>
+		<small id="cost">0.000000</small>
 		<button id="openSettings">Settings</button>
+	</div>
+	<div id="chatLog">
+	</div>
+	<div id="chatBar">
+		<form id="chatForm">
+			<input type="text" id="inputMessage" name="message" required autocomplete="off" autofocus>
+			<br>
+			<button type="submit">Submit</button>
+			<button type="button" id="clearChat">Reset</button>
+		</form>
+	</div>
 	<div id="settings">
 		<div id="settingsHeader">
 			<h2 id="settingsTitle">Settings</h2>
@@ -22,11 +37,18 @@
 					Key</a>:</label>
 			<input type="text" id="inputAPIKey" name="key" required autocomplete="off">
 			<br>
+			<label>Dark Mode:</label>
+			<label class="switch">
+				<input type="checkbox">
+				<span class="slider round"></span>
+			</label>
 			<button type="submit">Submit</button>
 		</form>
 	</div>
 	<script src="browser_action.js"></script>
 	<script src="showdown.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+		rel="stylesheet">
 </body>
 
 </html>
