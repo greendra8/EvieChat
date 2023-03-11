@@ -114,7 +114,7 @@ if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
     welcomeMessage.className = 'chatMessage assistant';
     const greetings = ['Hello', 'Hi', 'Hey', 'Hey there', 'Hi there', 'Hello there'];
     const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
-    welcomeMessage.innerHTML = `${randomGreeting} ${userName}! I am Evie, your personal AI chat assistant. I am here to assist you in any way I can. What can I do for you today?`;
+    welcomeMessage.innerHTML = `<p>${randomGreeting} ${userName}! I am Evie, your personal AI chat assistant. I am here to assist you in any way I can. What can I do for you today?</p>`;
     welcomeMessage.style.opacity = '1';
     chatLog.appendChild(welcomeMessage);
 } else {
