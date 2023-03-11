@@ -313,7 +313,7 @@ pre code {
 .lds-ellipsis {
     display: inline-block;
     position: relative;
-    margin-left: -5px;
+    margin-left: -7px;
 }
 
 .lds-ellipsis div {
@@ -322,7 +322,7 @@ pre code {
     width: 4.66667px;
     height: 4.66667px;
     border-radius: 50%;
-    background: #393e43;
+    background: #4f555b;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 
@@ -402,7 +402,7 @@ pre code {
 
 /* user */
 [data-theme="dark"] .user {
-    background-color: #2f758f;
+    background-color: #4b7787;
     border: none;
 }
 
@@ -422,6 +422,7 @@ pre code {
     background-color: #2f758f;
     border: none;
     color: #fff;
+    padding: 4px 10px;
 }
 
 [data-theme="dark"] #closeSettings {
@@ -459,3 +460,14 @@ pre code {
     background: #242734;
 }
 
+[data-theme="dark"] .lds-ellipsis div {
+    background: #d3d3d3;
+}
+
+[data-theme="dark"] .lds-ellipsis {
+    margin-left: -2px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background-color: #47516b;
+}
