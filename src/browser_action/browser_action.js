@@ -210,10 +210,12 @@ chatForm.addEventListener('submit', function (event) {
             }
 
             function markdownToHtml(markdownString) {
+                const converter = new showdown.Converter();
+                return converter.makeHtml(markdownString);
             }
 
-            // prevent html injection, but allow <br> and <code> and <li> tags to be rendered
-            responseText = responseText.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/&lt;br&gt;/g, '<br>').replace(/&lt;code&gt;/g, '<code>').replace(/&lt;\/code&gt;/g, '</code>').replace(/&lt;li&gt;/g, '<li>').replace(/&lt;\/li&gt;/g, '</li>');
+            // format response text#=
+            responseText = markdownToHtml(responseText);
 
             // calculate cost where 1000 tokens = $0.002
             const cost = totalTokens / 500000;
@@ -225,4 +227,7 @@ chatForm.addEventListener('submit', function (event) {
         .catch(error => console.error(error));
     document.getElementById('inputMessage').value = '';
 });
+
+
+  
 
