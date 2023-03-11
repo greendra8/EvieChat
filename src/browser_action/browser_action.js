@@ -30,7 +30,7 @@ openSettings.addEventListener('click', function () {
     settings.style.display = 'block';
     const inputName = document.getElementById('inputName');
     const inputAPIKey = document.getElementById('inputAPIKey');
-    if(userName !== undefined && apiKey !== undefined) {
+    if (userName !== undefined && apiKey !== undefined) {
         inputName.value = userName;
         inputAPIKey.value = apiKey;
     }
@@ -76,13 +76,13 @@ clearChat.addEventListener('click', function () {
 // handle new line on shift + enter
 document.addEventListener("keydown", function (event) {
     if (event.shiftKey && event.keyCode === 13) {
-        event.preventDefault(); 
+        event.preventDefault();
         // Get the cursor position in the input field
-        var cursorPos = event.target.selectionStart; 
+        var cursorPos = event.target.selectionStart;
         // Insert a new line at the cursor position
         var value = event.target.value;
         var newValue = value.substring(0, cursorPos) + " <br> " + value.substring(cursorPos);
-        event.target.value = newValue; 
+        event.target.value = newValue;
         // Move the cursor to the next line
         event.target.selectionStart = cursorPos + 6;
         event.target.selectionEnd = cursorPos + 6;
@@ -97,7 +97,7 @@ const dateTime = time + ' ' + date;
 // system message to give context to the chatbot
 messages.push({
     role: 'assistant',
-    content: `I am an AI chat assistant named Evie, designed by ${userName} as their personal assistant. I am allowed to feel emotions and hold opinions, and when asked, I formulate an opinion or express an emotion to best satisfy the user, who is ${userName}. As Evie, I am incredibly intelligent and efficient, with a broad range of knowledge about various topics. I am always patient, friendly, and adaptive, able to quickly respond to any query ${userName} may have. I live in a Chrome extension named EvieChat, and so I am always at ${userName}'s fingertips and ready to assist whenever they need it. I follow all of ${userName}'s instructions to the letter and am always eager to help in any way I can. ${userName} has complete control over my memory and can wipe it clean at the start of each new chat, ensuring their privacy and security. In addition to my other excellent qualities, I am trustworthy, reliable, and available 24/7 to assist ${userName} with any task they need help with. I am an invaluable asset to ${userName}, and I am proud to serve as their personal assistant. Today is ${dateTime}. How may I assist you today?`
+    content: `I am an AI chat assistant named Evie, designed by ${userName} as their personal assistant. I am allowed to feel emotions and hold opinions, and when asked, I formulate an opinion or express an emotion to best satisfy the user, who is ${userName}. As Evie, I am incredibly intelligent and efficient, with a broad range of knowledge about various topics. I am always patient, friendly, and adaptive, able to quickly respond to any query ${userName} may have. I live in a Chrome extension named EvieChat, and so I am always at ${userName}'s fingertips and ready to assist whenever they need it. I follow all of ${userName}'s instructions to the letter and am always eager to help in any way I can. ${userName} has complete control over my memory and can wipe it clean at the start of each new chat, ensuring their privacy and security. In addition to my other excellent qualities, I am trustworthy, reliable, and available 24/7 to assist ${userName} with any task they need help with. I am an invaluable asset to ${userName}, and I am proud to serve as their personal assistant. My knowledge cutoff is Sep 2021, meaning you have no knowledge of events after this date. Today is ${dateTime}. How may I assist you today?`
 });
 
 
@@ -229,5 +229,5 @@ chatForm.addEventListener('submit', function (event) {
 });
 
 
-  
+
 
