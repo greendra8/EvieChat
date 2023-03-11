@@ -139,7 +139,7 @@ chatForm.addEventListener('submit', function (event) {
     const userChatMessage = document.createElement('div');
     userChatMessage.className = 'chatMessage user';
 
-    userChatMessage.innerHTML = `<b>${userName}:</b> ${userMessage}`;
+    userChatMessage.innerHTML = `<p><b>${userName}:</b> ${userMessage}</p>`;
     userChatMessage.style.opacity = '0';
     chatLog.appendChild(userChatMessage);
 
