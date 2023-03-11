@@ -209,22 +209,7 @@ chatForm.addEventListener('submit', function (event) {
                 localStorage.setItem('totalTokens', totalTokens);
             }
 
-
-            // format new lines - into <br> tags
-            responseText = responseText.replace(/\n/g, '<br>');
-
-
-            // format - into bullet points <li> and </li>
-            responseText = responseText.replace(/- /g, '<li>');
-            responseText = responseText.replace(/$/g, '</li>');
-
-
-            // replace code blocks with <code> tags
-            const codeBlockRegex = /```[\s\S]*```/g;
-            const codeBlock = messageText.match(codeBlockRegex);
-            if (codeBlock) {
-                codeBlock[0] = codeBlock[0].slice(3, -3);
-                responseText = messageText.replace(codeBlockRegex, `<code>${codeBlock[0]}</code>`);
+            function markdownToHtml(markdownString) {
             }
 
             // prevent html injection, but allow <br> and <code> and <li> tags to be rendered
