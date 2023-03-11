@@ -145,7 +145,7 @@ chatForm.addEventListener('submit', function (event) {
 
     const assistantChatMessage = document.createElement('div');
     assistantChatMessage.className = 'chatMessage assistant';
-    assistantChatMessage.innerHTML = 'I\'m thinking <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
+    assistantChatMessage.innerHTML = '<p>I\'m thinking <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></p>';
     assistantChatMessage.style.opacity = '0';
     chatLog.appendChild(assistantChatMessage);
 
