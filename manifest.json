@@ -17,5 +17,15 @@
     "default_icon": "icons/icon19.png",
     "default_title": "EvieChat",
     "default_popup": "src/browser_action/browser_action.html"
+  },
+  "commands": {
+    "_execute_action": {
+        "suggested_key": {
+            "default": "Alt+Shift+1"
+        }
+    }
+  },
+  "background": {
+    "service_worker": "src/bg/background.js"
   }
 }
