@@ -112,6 +112,10 @@ p {
     line-height: 18px;
 }
 
+ul:not(:last-child), ol:not(:last-child) {
+    margin-bottom: 1em;
+}
+
 p:not(:last-child) {
     margin-bottom: 1em;
   }
