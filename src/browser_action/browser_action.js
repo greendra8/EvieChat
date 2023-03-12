@@ -89,6 +89,11 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
+function markdownToHtml(markdownString) {
+    const converter = new showdown.Converter();
+    return converter.makeHtml(markdownString);
+}
+
 const today = new Date();
 const date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
