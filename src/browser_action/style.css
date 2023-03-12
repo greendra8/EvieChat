@@ -419,7 +419,7 @@ pre code {
 
 /* button */
 [data-theme="dark"] button {
-    background-color: #2f758f;
+    background-color: #4b7787;
     border: none;
     color: #fff;
     padding: 4px 10px;
@@ -432,7 +432,7 @@ pre code {
 }
 
 [data-theme="dark"] a {
-    color: #2f758f;
+    color: #4b7787;
 }
 
 [data-theme="dark"] pre {
