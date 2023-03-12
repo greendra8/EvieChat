@@ -265,6 +265,11 @@ chatForm.addEventListener('submit', function (event) {
 });
 
 // set up dark mode
+// auto enable dark mode
+if (localStorage.getItem('theme') === null) {
+    localStorage.setItem('theme', 'dark');
+}  
+
 const toggleSwitch = document.querySelector('.switch input[type="checkbox"]');
 
 function switchTheme(e) {
