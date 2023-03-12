@@ -70,7 +70,9 @@ let messages = [];
 const clearChat = document.getElementById('clearChat');
 clearChat.addEventListener('click', function () {
     messages.splice(1, messages.length - 1);
+    localStorage.removeItem('messages');
     chatLog.innerHTML = '';
+    welcomeMessage();
 });
 
 // handle new line on shift + enter
@@ -165,12 +167,13 @@ loadFromLocalStorage();
 window.addEventListener('load', function () {
     chatLog.scrollTop = chatLog.scrollHeight;
 });
+
 chatForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const userMessage = document.getElementById('inputMessage').value;
     messages.push({ "role": "user", "content": userMessage });
 
-    // if messages array has more than 25 elements, remove the second and third elements and print a message to the console
+    // if messages array has more than n elements, remove the second and third elements (must be removed in pairs)
     if (messages.length > 25) {
         messages.splice(2, 2);
     }
@@ -184,7 +187,8 @@ chatForm.addEventListener('submit', function (event) {
 
     const assistantChatMessage = document.createElement('div');
     assistantChatMessage.className = 'chatMessage assistant';
-    assistantChatMessage.innerHTML = '<p>I\'m thinking <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></p>';
+
+    assistantChatMessage.innerHTML = '<p style="display: inline;"><b>Evie: </b>I\'m thinking <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></p>';
     assistantChatMessage.style.opacity = '0';
     chatLog.appendChild(assistantChatMessage);
 
@@ -212,9 +216,6 @@ chatForm.addEventListener('submit', function (event) {
         fadeIn(assistantChatMessage, fadeInTime);
     }, fadeInTime - 100);
 
-    // log messages to console
-    console.log(messages);
-
     fetch(url, {
         method: 'POST',
         headers: {
@@ -240,7 +241,6 @@ chatForm.addEventListener('submit', function (event) {
             // load totalTokens value from browser storage if it exists, and add it to new totalTokens value
             if (localStorage.getItem('totalTokens')) {
                 const previousTotalTokens = parseInt(localStorage.getItem('totalTokens'));
-                console.log("previousTotalTokens value is " + previousTotalTokens)
                 const newTotalTokens = previousTotalTokens + totalTokens;
                 // set totalTokens to newTotalTokens
                 totalTokens = newTotalTokens;
@@ -292,4 +292,5 @@ if (currentTheme) {
     if (currentTheme === 'dark') {
         toggleSwitch.checked = true;
     }
-}
+} 
+
