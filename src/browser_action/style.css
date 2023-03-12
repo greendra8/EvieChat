@@ -108,17 +108,15 @@ body {
 }
 
 p {
-    display: inline;
     line-height: 18px;
 }
 
+p:not(:last-child) {
+    margin-bottom: 1em;
+  }
+
 .user {
     background-color: #f1f1f1;
-}
-
-.assistant::before {
-    content: "Evie: ";
-    font-weight: bold;
 }
 
 .assistant {
@@ -311,14 +309,14 @@ pre code {
 }
 
 .lds-ellipsis {
-    display: inline-block;
+    display: inline;
     position: relative;
-    margin-left: -7px;
+    margin-top: -50px;
 }
 
 .lds-ellipsis div {
     position: absolute;
-    top: -3.4px;
+    bottom: 1.2px;
     width: 4.66667px;
     height: 4.66667px;
     border-radius: 50%;
@@ -465,7 +463,7 @@ pre code {
 }
 
 [data-theme="dark"] .lds-ellipsis {
-    margin-left: -2px;
+    margin-left: 2px;
 }
 
 [data-theme="dark"] ::-webkit-scrollbar-thumb {
