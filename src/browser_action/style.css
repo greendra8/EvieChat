@@ -423,7 +423,7 @@ pre code {
 /* button */
 [data-theme="dark"] button {
     background-color: #4b7787;
-    border: none;
+    border-color: #4b7787;
     color: #fff;
     padding: 4px 10px;
 }
@@ -433,6 +433,11 @@ pre code {
     border: none;
     color: #fff;
 }
+
+[data-theme="dark"] #openSettings:active {
+    background-color: #4b7787;
+}
+
 
 [data-theme="dark"] a {
     color: #4b7787;
