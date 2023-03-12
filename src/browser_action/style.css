@@ -466,6 +466,7 @@ pre code {
 
 [data-theme="dark"] #settings, [data-theme="dark"] #settingsForm {
     background: #242734;
+    border-radius: 3px;
 }
 
 [data-theme="dark"] .lds-ellipsis div {
