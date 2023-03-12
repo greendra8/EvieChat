@@ -136,6 +136,35 @@ function welcomeMessage() {
 
 welcomeMessage();
 
+function saveToLocalStorage() {
+    localStorage.setItem('messages', JSON.stringify(messages));
+}
+
+function loadFromLocalStorage() {
+    if (localStorage.getItem('messages')) {
+      const savedMessages = JSON.parse(localStorage.getItem('messages'));
+
+      // for every message except the first one, create a new div and add it to the chat log
+      savedMessages.slice(1).forEach(function(message) {
+        messages.push(message);
+        messageContent = markdownToHtml(`<b>${message.role === 'user' ? userName : 'Evie'}:</b> ${message.content}`);
+        const chatMessage = document.createElement('div');
+        chatMessage.className = 'chatMessage ' + message.role;
+        chatMessage.innerHTML = `${messageContent}`;
+        chatMessage.style.opacity = '1';
+        chatLog.appendChild(chatMessage);
+      });
+      // scroll to the bottom of the chat log
+        chatLog.scrollTop = chatLog.scrollHeight;
+    }
+  }
+  
+
+loadFromLocalStorage();
+// wait for content to load before scrolling to the bottom of the chat log
+window.addEventListener('load', function () {
+    chatLog.scrollTop = chatLog.scrollHeight;
+});
 chatForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const userMessage = document.getElementById('inputMessage').value;
@@ -204,6 +233,7 @@ chatForm.addEventListener('submit', function (event) {
             const messageText = message.content.trim();
             const messageRole = message.role;
             messages.push(message);
+            saveToLocalStorage();
 
             let responseText = messageText;
 
