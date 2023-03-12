@@ -249,19 +249,15 @@ chatForm.addEventListener('submit', function (event) {
                 localStorage.setItem('totalTokens', totalTokens);
             }
 
-            function markdownToHtml(markdownString) {
-                const converter = new showdown.Converter();
-                return converter.makeHtml(markdownString);
-            }
-
-            // format response text#=
-            responseText = markdownToHtml(responseText);
+            // format response text
+            responseText = markdownToHtml(`<b>Evie: </b> ${responseText}`);
 
             // calculate cost where 1000 tokens = $0.002
             const cost = totalTokens / 500000;
             document.getElementById('cost').innerText = cost;
-
-            assistantChatMessage.innerHTML = responseText;
+            
+            // assistantChatMessage.innerHTML = `<p><b>Evie: </b> ${responseText}</p>`;
+            assistantChatMessage.innerHTML = `${responseText}`;
             chatLog.scrollTop = chatLog.scrollHeight;
         })
         .catch(error => console.error(error));
