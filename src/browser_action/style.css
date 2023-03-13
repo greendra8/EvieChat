@@ -19,9 +19,18 @@ body {
     display: inline;
 }
 
+/* display status below title in small font */
+#status {
+    position: relative;
+    left: 39px;
+    top: -2px;
+    font-size: 0.8em;
+    font-weight: 400;
+}
+
 #logo {
     height: 30px;
-    top: 3px;
+    top: 7px;
     left: 3px;
     position: relative;
 }
@@ -54,8 +63,8 @@ body {
 
 #openSettings {
     position: absolute;
-    top: 12px;
-    right: 7px;
+    top: 16px;
+    right: 11px;
     padding: 3px 8px;
 }
 
@@ -137,7 +146,7 @@ p:not(:last-child) {
 }
 
 #chatLog {
-    height: 348px;
+    height: 336px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 5px;
@@ -234,6 +243,87 @@ pre code {
     font-size: inherit;
     line-height: inherit;
     padding: 0;
+  }
+
+/* table style */
+/* border between each cell */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid rgb(255 255 255 / 14%);
+    margin: 5px 0;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+thead, tr:nth-child(even){background-color: hsla(0, 0%, 100%, 0.031)}
+
+
+
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {display:none;}
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
   }
     
 /* The switch - the box around the slider */
@@ -385,6 +475,10 @@ pre code {
     font-family: "Source Sans Pro", sans-serif;
 }
 
+[data-theme="dark"] #chatLog {
+    height: 333px;
+}
+
 [data-theme="dark"] .chatMessage p {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #eee;
@@ -436,6 +530,7 @@ pre code {
     background-color: #2f3850;
     border: none;
     color: #fff;
+    line-height: 1.45em;
 }
 
 [data-theme="dark"] input:focus {
@@ -447,6 +542,7 @@ pre code {
     border-color: #4b7787;
     color: #fff;
     padding: 4px 10px;
+    font-size: 1.3em;
 }
 
 [data-theme="dark"] #closeSettings {

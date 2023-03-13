@@ -2,12 +2,36 @@ const url = 'https://api.openai.com/v1/chat/completions';
 const model = 'gpt-3.5-turbo';
 showdown.setOption('tables', true);
 
+// online check
+
+function statusCheck() {
+    const statusElement = document.getElementById('status');
+    fetch(url)
+    .then(response => {
+        if (response.status === 401) {
+        // API is online
+        statusElement.textContent = 'Online Now';
+        } else {
+        // API is offline
+        statusElement.textContent = 'Offline';
+        // set font color to red
+        statusElement.style.color = '#ff4b4b';
+        }
+    })
+    .catch(error => {
+        // An error occurred, API is offline
+        statusElement.textContent = 'Offline';
+        statusElement.style.color = '#ff4b4b';
+    });
+}
+
 // user settings
 
 // check if userName and apiKey are saved
 if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
     var userName = localStorage.getItem('userName');
     var apiKey = localStorage.getItem('apiKey');
+    statusCheck();
 } else {
     const settings = document.getElementById('settings');
     settings.style.display = 'block';
@@ -154,7 +178,7 @@ function loadFromLocalStorage() {
     if (localStorage.getItem('messages')) {
       const savedMessages = JSON.parse(localStorage.getItem('messages'));
 
-      // for every message except the first one, create a new div and add it to the chat log
+      // for every message except the first one (which is system message), create a new div and add it to the chat log
       savedMessages.slice(1).forEach(function(message) {
         messages.push(message);
         // set messageContent to the markdown converted to HTML and have either "> userName:" or "Evie:" at the start
@@ -270,6 +294,8 @@ chatForm.addEventListener('submit', function (event) {
             // assistantChatMessage.innerHTML = `<p><b>Evie: </b> ${responseText}</p>`;
             assistantChatMessage.innerHTML = `${responseText}`;
             chatLog.scrollTop = chatLog.scrollHeight;
+
+            // console.log(messages)
         })
         .catch(error => console.error(error));
     document.getElementById('inputMessage').value = '';
