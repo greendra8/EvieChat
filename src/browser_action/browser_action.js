@@ -1,5 +1,6 @@
 const url = 'https://api.openai.com/v1/chat/completions';
 const model = 'gpt-3.5-turbo';
+showdown.setOption('tables', true);
 
 // user settings
 
