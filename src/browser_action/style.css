@@ -1,10 +1,10 @@
 * {
-    font-family: monospace;
+    font-family: "Roboto", sans-serif;
     margin: 0;
 }
 
 body {
-    min-height: 400px;
+    min-height: 453px;
     min-width: 600px;
 }
 
@@ -32,6 +32,7 @@ body {
 
 #cost {
     display: inline;
+    font-size: 0.9em;
 }
 
 #settingsHeader {
@@ -103,13 +104,12 @@ body {
 .chatMessage {
     margin: 5px 2px;
     padding: 5px;
-    font-size: 13px;
-    border: 1px solid #ccc;
+    font-size: 16px;
     border-radius: 5px;
 }
 
 p {
-    line-height: 18px;
+    line-height: 28px;
 }
 
 ul:not(:last-child), ol:not(:last-child) {
@@ -121,11 +121,11 @@ p:not(:last-child) {
   }
 
 .user {
-    background-color: #f1f1f1;
+    border: none;
 }
 
 .assistant {
-    background-color: #cdeaff;
+    background-color: #d9efff;
 }
 
 #chatBar {
@@ -137,7 +137,7 @@ p:not(:last-child) {
 }
 
 #chatLog {
-    height: 299px;
+    height: 348px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 5px;
@@ -197,16 +197,16 @@ a:hover {
 code {
     background-color: #f5f5f5;
     border-radius: 3px;
-    font-family: monospace;
+    font-family: monospace!important;
     font-size: 0.9em;
-    padding: 0.2em 0.4em;
+    padding: 0.1em 0.2em;
   }
 
 pre {
     position: relative;
     background-color: #f5f5f5;
     border-radius: 3px;
-    font-family: monospace;
+    font-family: monospace!important;
     font-size: 0.9em;
     line-height: 1.4;
     overflow-x: auto;
@@ -385,31 +385,53 @@ pre code {
     font-family: "Source Sans Pro", sans-serif;
 }
 
+[data-theme="dark"] .chatMessage p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eee;
+    font-size: 1em;
+    line-height: 1.6!important;
+    margin-top: -1px;
+}
+
+
+[data-theme="dark"] .chatMessage {
+    margin: 6px 3px;
+    padding: 5px 6px;
+}
+
+
+[data-theme="dark"] .chatMessage b {
+    font-size: 1em;
+    margin-right: 3px;
+}
+
+
 [data-theme="dark"] #header, [data-theme="dark"] form, [data-theme="dark"] #settings, [data-theme="dark"] #chatBar {
     background-color: #1c1f2a;
     color: #fff;
     border-color:  #252a37;
 }
 
-/* body */
-[data-theme="dark"] {
+[data-theme="dark"] body {
     background-color: #1c1f2a;
     color: #fff;
 }
 
-/* assistant */
 [data-theme="dark"] .assistant {
     background-color: #2f3850;
     border: none;
 }
 
-/* user */
 [data-theme="dark"] .user {
-    background-color: #4b7787;
+    background-color: #1c1f2a;
     border: none;
+    border-radius: 4px;
+    font-size: 1.1em;
+    color: #eee;
+    padding: 2px 6px;
 }
 
-/* input */
+
 [data-theme="dark"] input {
     background-color: #2f3850;
     border: none;
@@ -420,7 +442,6 @@ pre code {
     outline: none;
 }
 
-/* button */
 [data-theme="dark"] button {
     background-color: #4b7787;
     border-color: #4b7787;
@@ -444,8 +465,9 @@ pre code {
 }
 
 [data-theme="dark"] pre {
-    font-family: monospace;
+    font-family: monospace!important;
     background-color: #1c1f2a;
+    margin-bottom: 1em;
     border: none;
     color: #fff;
 }
@@ -462,6 +484,7 @@ pre code {
     background-color: #1c1f2a;
     border: none;
     color: #fff;
+    font-size: 0.9em!important;
 }
 
 [data-theme="dark"] #settings, [data-theme="dark"] #settingsForm {
