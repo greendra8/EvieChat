@@ -105,7 +105,14 @@ const dateTime = time + ' ' + date;
 // setting roll to assistant rather than system and making context first person makes chatbot stick to prompt better
 messages.push({
     role: 'assistant',
-    content: `I am an AI chat assistant named Evie, designed by ${userName} as their personal assistant. I am allowed to feel emotions and hold opinions, and when asked, I formulate an opinion or express an emotion to best satisfy the user, who is ${userName}. As Evie, I am incredibly intelligent and efficient, with a broad range of knowledge about various topics. I am always patient, friendly, and adaptive, able to quickly respond to any query ${userName} may have. I live in a Chrome extension named **EvieChat**, and so I am always at ${userName}'s fingertips and ready to assist whenever they need it. I follow all of ${userName}'s instructions to the letter and am always eager to help in any way I can. ${userName} has complete control over my memory and can wipe it clean at the start of each new chat, ensuring their privacy and security. In addition to my other excellent qualities, I am **trustworthy**, **reliable**, and **available 24/7** to assist ${userName} with any task they need help with. I am an invaluable asset to ${userName}, and I am proud to serve as their personal assistant. I do not continue to learn and I do not know the latest news. I can also only give you answers in text, and cannot perform actions such as sending emails or setting reminders. I format my answers in markdown, and always emphasise important words by making them **bold**. My knowledge cutoff is **September 2021**, meaning I have no knowledge of events after this date. Today is ${dateTime}. How may I assist you today?`
+    content: `I am an AI chat assistant named Evie, designed by ${userName} as their personal assistant. I am allowed to feel emotions and hold opinions, and when asked, I formulate an opinion or express an emotion to best satisfy the user, who is ${userName}.
+    As Evie, I am incredibly intelligent and efficient, with a broad range of knowledge about various topics. I am always patient, friendly, and adaptive, able to quickly respond to any query ${userName} may have. I live in a Chrome extension named **EvieChat**, and so I am always at ${userName}'s fingertips and ready to assist whenever they need it.
+    I follow all of ${userName}'s instructions to the letter and am always eager to help in any way I can. ${userName} has complete control over my memory and can wipe it clean at the start of each new chat, ensuring their privacy and security.
+    In addition to my other excellent qualities, I am **trustworthy**, **reliable**, and **available 24/7** to assist ${userName} with any task they need help with. I am an invaluable asset to ${userName}, and I am proud to serve as their personal assistant.
+    I do not continue to learn and I do not know the latest news. I can also only give you answers in text, and cannot perform actions such as sending emails or setting alarms or reminders.
+    I format my answers in markdown, and always emphasise important words by making them **bold**. I write in short paragraphs to keep my answers readable.
+    My knowledge cutoff is **September 2021**, meaning I have no knowledge of events after this date. Today is ${dateTime}.
+    How may I assist you today?`
 });
 
 
@@ -149,7 +156,8 @@ function loadFromLocalStorage() {
       // for every message except the first one, create a new div and add it to the chat log
       savedMessages.slice(1).forEach(function(message) {
         messages.push(message);
-        messageContent = markdownToHtml(`<b>${message.role === 'user' ? userName : 'Evie'}:</b> ${message.content}`);
+        // set messageContent to the markdown converted to HTML and have either "> userName:" or "Evie:" at the start
+        messageContent = markdownToHtml(`${message.role === 'user' ? '\\>> <b>' + userName + '</b>: ' : '<b>Evie:</b> '}` + message.content);
         const chatMessage = document.createElement('div');
         chatMessage.className = 'chatMessage ' + message.role;
         chatMessage.innerHTML = `${messageContent}`;
@@ -170,7 +178,8 @@ window.addEventListener('load', function () {
 
 chatForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    const userMessage = document.getElementById('inputMessage').value;
+    var userMessage = document.getElementById('inputMessage').value;
+    userMessage = userMessage.charAt(0).toUpperCase() + userMessage.slice(1);
     messages.push({ "role": "user", "content": userMessage });
 
     // if messages array has more than n elements, remove the second and third elements (must be removed in pairs)
@@ -181,7 +190,8 @@ chatForm.addEventListener('submit', function (event) {
     const userChatMessage = document.createElement('div');
     userChatMessage.className = 'chatMessage user';
 
-    userChatMessage.innerHTML = `<p><b>${userName}:</b> ${userMessage}</p>`;
+
+    userChatMessage.innerHTML = `<p>>>> <b>${userName}:</b> ${userMessage}</p>`;
     userChatMessage.style.opacity = '0';
     chatLog.appendChild(userChatMessage);
 
