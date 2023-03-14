@@ -411,7 +411,7 @@ thead, tr:nth-child(even){background-color: #dfdfdf}
 
 .lds-ellipsis div {
     position: absolute;
-    bottom: 1.2px;
+    bottom: 2px;
     width: 4.66667px;
     height: 4.66667px;
     border-radius: 50%;
@@ -605,6 +605,7 @@ thead, tr:nth-child(even){background-color: #dfdfdf}
 
 [data-theme="dark"] .lds-ellipsis div {
     background: #d3d3d3;
+    bottom: 3px;
 }
 
 [data-theme="dark"] .lds-ellipsis {
