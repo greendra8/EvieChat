@@ -12,7 +12,7 @@ function statusCheck() {
             if (response.status === 401) {
                 // API is online
                 statusElement.textContent = 'Online Now';
-                statusElement.style.color = '#fff';
+                statusElement.style.color = '';
             } else {
                 // API is offline
                 statusElement.textContent = 'Offline';
