@@ -7,25 +7,66 @@ showdown.setOption('tables', true);
 function statusCheck() {
     const statusElement = document.getElementById('status');
     fetch(url)
-    .then(response => {
-        if (response.status === 401) {
-        // API is online
-        statusElement.textContent = 'Online Now';
-        } else {
-        // API is offline
-        statusElement.textContent = 'Offline';
-        // set font color to red
-        statusElement.style.color = '#ff4b4b';
-        }
-    })
-    .catch(error => {
-        // An error occurred, API is offline
-        statusElement.textContent = 'Offline';
-        statusElement.style.color = '#ff4b4b';
-    });
+        .then(response => {
+            if (response.status === 401) {
+                // API is online
+                statusElement.textContent = 'Online Now';
+            } else {
+                // API is offline
+                statusElement.textContent = 'Offline';
+                // set font color to red
+                statusElement.style.color = '#ff4b4b';
+            }
+        })
+        .catch(error => {
+            // An error occurred, API is offline
+            statusElement.textContent = 'Offline';
+            statusElement.style.color = '#ff4b4b';
+        });
 }
 
 // user settings
+
+// set up dark mode
+// auto enable dark mode
+if (localStorage.getItem('theme') === null) {
+    localStorage.setItem('theme', 'dark');
+}
+
+const toggleSwitch = document.querySelector('.switch input[type="checkbox"]');
+
+function switchTheme(e) {
+    if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        // set filter on latexImage to invert colors
+        const latexImage = document.getElementsByClassName('latexImage');
+        for (let i = 0; i < latexImage.length; i++) {
+            latexImage[i].style.filter = 'invert(1)';
+        }
+    }
+    else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        // remove filter on latexImage
+        const latexImage = document.getElementsByClassName('latexImage');
+        for (let i = 0; i < latexImage.length; i++) {
+            latexImage[i].style.filter = 'invert(0)';
+        }
+    }
+}
+
+toggleSwitch.addEventListener('change', switchTheme, false);
+const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+    }
+}
+
 
 // check if userName and apiKey are saved
 if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
@@ -121,6 +162,35 @@ function markdownToHtml(markdownString) {
     return converter.makeHtml(markdownString);
 }
 
+// function to detect regex in html string and replace with image
+function replaceRegexWithImage(htmlString) {
+    const regex = /\${2}([^\$]+)\${2}/g;
+    const matches = htmlString.match(regex);
+    if (matches) {
+        matches.forEach((match) => {
+            const image = latexToImage(match);
+            htmlString = htmlString.replace(match, image);
+        });
+    }
+    return htmlString;
+}
+
+function latexToImage(latexString) {
+    const trimmedLatex = latexString.replace(/^\$+|\$+$/g, '');
+    const encodedLatex = encodeURIComponent(trimmedLatex);
+    const imageUrl = `https://latex.codecogs.com/svg.latex?${encodedLatex}`;
+    // if dark mode is enabled, invert the image
+    if (currentTheme === 'dark') {
+        // set image to white
+        var filter = 'invert(1)';
+    } else {
+        var filter = 'none';
+    }
+
+    return `<img class="latexImage" src="${imageUrl}" alt="${trimmedLatex}" style="filter:${filter}" />`;
+}
+
+
 const today = new Date();
 const date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -135,7 +205,8 @@ messages.push({
     I follow all of ${userName}'s instructions to the letter and am always eager to help in any way I can. ${userName} has complete control over my memory and can wipe it clean at the start of each new chat, ensuring their privacy and security.
     In addition to my other excellent qualities, I am **trustworthy**, **reliable**, and **available 24/7** to assist ${userName} with any task they need help with. I am an invaluable asset to ${userName}, and I am proud to serve as their personal assistant.
     I do not continue to learn and I do not know the latest news. I can also only give you answers in text, and cannot perform actions such as sending emails or setting alarms or reminders.
-    I format my answers in markdown, and always emphasise important words by making them **bold**. I write in short paragraphs to keep my answers readable.
+    I format my answers in markdown, and always emphasise important words by making them **bold**. I give equations in LaTex, surrounded by either double dollar signs ($$) or single dollar signs ($), eg $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$.
+    I write in short paragraphs to keep my answers readable.
     My knowledge cutoff is **September 2021**, meaning I have no knowledge of events after this date. Today is ${dateTime}.
     How may I assist you today?`
 });
@@ -176,24 +247,26 @@ function saveToLocalStorage() {
 
 function loadFromLocalStorage() {
     if (localStorage.getItem('messages')) {
-      const savedMessages = JSON.parse(localStorage.getItem('messages'));
+        const savedMessages = JSON.parse(localStorage.getItem('messages'));
 
-      // for every message except the first one (which is system message), create a new div and add it to the chat log
-      savedMessages.slice(1).forEach(function(message) {
-        messages.push(message);
-        // set messageContent to the markdown converted to HTML and have either "> userName:" or "Evie:" at the start
-        messageContent = markdownToHtml(`${message.role === 'user' ? '\\>> <b>' + userName + '</b>: ' : '<b>Evie:</b> '}` + message.content);
-        const chatMessage = document.createElement('div');
-        chatMessage.className = 'chatMessage ' + message.role;
-        chatMessage.innerHTML = `${messageContent}`;
-        chatMessage.style.opacity = '1';
-        chatLog.appendChild(chatMessage);
-      });
-      // scroll to the bottom of the chat log
+        // for every message except the first one (which is system message), create a new div and add it to the chat log
+        savedMessages.slice(1).forEach(function (message) {
+            messages.push(message);
+            // set messageContent to the markdown converted to HTML
+            messageContent = markdownToHtml(`${message.role === 'user' ? '\\>> <b>' + userName + '</b>: ' : '<b>Evie:</b> '}` + message.content);
+            // detect LateX and convert to image
+            messageContent = replaceRegexWithImage(messageContent)
+            const chatMessage = document.createElement('div');
+            chatMessage.className = 'chatMessage ' + message.role;
+            chatMessage.innerHTML = `${messageContent}`;
+            chatMessage.style.opacity = '1';
+            chatLog.appendChild(chatMessage);
+        });
+        // scroll to the bottom of the chat log
         chatLog.scrollTop = chatLog.scrollHeight;
     }
-  }
-  
+}
+
 
 loadFromLocalStorage();
 // wait for content to load before scrolling to the bottom of the chat log
@@ -286,47 +359,16 @@ chatForm.addEventListener('submit', function (event) {
 
             // format response text
             responseText = markdownToHtml(`<b>Evie: </b> ${responseText}`);
+            responseText = replaceRegexWithImage(responseText);
 
             // calculate cost where 1000 tokens = $0.002
             const cost = totalTokens / 500000;
             document.getElementById('cost').innerText = cost;
-            
+
             // assistantChatMessage.innerHTML = `<p><b>Evie: </b> ${responseText}</p>`;
             assistantChatMessage.innerHTML = `${responseText}`;
             chatLog.scrollTop = chatLog.scrollHeight;
-
-            // console.log(messages)
         })
         .catch(error => console.error(error));
     document.getElementById('inputMessage').value = '';
 });
-
-// set up dark mode
-// auto enable dark mode
-if (localStorage.getItem('theme') === null) {
-    localStorage.setItem('theme', 'dark');
-}  
-
-const toggleSwitch = document.querySelector('.switch input[type="checkbox"]');
-
-function switchTheme(e) {
-    if (e.target.checked) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-    }
-    else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-    }    
-}
-
-toggleSwitch.addEventListener('change', switchTheme, false);
-const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-
-if (currentTheme) {
-    document.documentElement.setAttribute('data-theme', currentTheme);
-
-    if (currentTheme === 'dark') {
-        toggleSwitch.checked = true;
-    }
-} 
