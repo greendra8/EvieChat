@@ -1,6 +1,6 @@
 # EvieChat
 
-![EvieChat Screenshot](https://i.imgur.com/3e8KsD4.png)
+![EvieChat Screenshot](https://i.imgur.com/cedXQr9.png)
 
 Evie is a simple ChatGPT chrome extension assistant. It uses the OpenAI API to handle requests, and serves users through a simple and clean interface.
 
