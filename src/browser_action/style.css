@@ -485,6 +485,12 @@ input:checked+.slider:before {
     font-family: "Source Sans Pro", sans-serif;
 }
 
+[data-theme="dark"] #logo {
+    box-shadow:  27px 27px 54px #2d4751,
+    -27px -27px 54px #69a7bd;
+    border-radius: 50%;
+}
+
 [data-theme="dark"] #chatLog {
     height: 333px;
 }
@@ -519,6 +525,11 @@ input:checked+.slider:before {
     border-color: #252a37;
 }
 
+[data-theme="dark"] #settings {
+    box-shadow:  16px 16px 32px #0b0c11,
+             -16px -16px 32px #2d324370;
+}
+
 [data-theme="dark"] body {
     background-color: #1c1f2a;
     color: #fff;
@@ -527,13 +538,16 @@ input:checked+.slider:before {
 [data-theme="dark"] .assistant {
     background-color: #2f3850;
     border: none;
+    /* shadow */
+    box-shadow:  20px 20px 60px #0b0c11,
+    -20px -20px 60px #2d3243;
+
 }
 
 [data-theme="dark"] .user {
-    background-color: #1c1f2a;
     border: none;
     border-radius: 4px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     color: #eee;
     padding: 2px 6px;
 }
@@ -556,6 +570,8 @@ input:checked+.slider:before {
     color: #fff;
     padding: 4px 10px;
     font-size: 1.3em;
+    box-shadow:  20px 20px 60px #0b0c11,
+    -20px -20px 60px #2d3243;
 }
 
 [data-theme="dark"] #closeSettings {
