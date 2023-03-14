@@ -264,6 +264,7 @@ function loadFromLocalStorage() {
             chatMessage.innerHTML = `${messageContent}`;
             chatMessage.style.opacity = '1';
             chatLog.appendChild(chatMessage);
+            hljs.highlightAll();
         });
         // scroll to the bottom of the chat log
         chatLog.scrollTop = chatLog.scrollHeight;
@@ -370,6 +371,7 @@ chatForm.addEventListener('submit', function (event) {
 
             // assistantChatMessage.innerHTML = `<p><b>Evie: </b> ${responseText}</p>`;
             assistantChatMessage.innerHTML = `${responseText}`;
+            hljs.highlightAll();
             chatLog.scrollTop = chatLog.scrollHeight;
         })
         .catch(error => console.error(error));
