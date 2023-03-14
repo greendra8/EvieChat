@@ -1,6 +1,7 @@
 const url = 'https://api.openai.com/v1/chat/completions';
 const model = 'gpt-3.5-turbo';
 showdown.setOption('tables', true);
+showdown.setOption('literalMidWordUnderscores', true);
 
 // online check
 
@@ -11,10 +12,10 @@ function statusCheck() {
             if (response.status === 401) {
                 // API is online
                 statusElement.textContent = 'Online Now';
+                statusElement.style.color = '#fff';
             } else {
                 // API is offline
                 statusElement.textContent = 'Offline';
-                // set font color to red
                 statusElement.style.color = '#ff4b4b';
             }
         })
@@ -24,6 +25,9 @@ function statusCheck() {
             statusElement.style.color = '#ff4b4b';
         });
 }
+
+statusCheck();
+setInterval(statusCheck, 20000);
 
 // user settings
 
@@ -72,7 +76,6 @@ if (currentTheme) {
 if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
     var userName = localStorage.getItem('userName');
     var apiKey = localStorage.getItem('apiKey');
-    statusCheck();
 } else {
     const settings = document.getElementById('settings');
     settings.style.display = 'block';
@@ -162,9 +165,8 @@ function markdownToHtml(markdownString) {
     return converter.makeHtml(markdownString);
 }
 
-// function to detect regex in html string and replace with image
 function replaceRegexWithImage(htmlString) {
-    const regex = /\${2}([^\$]+)\${2}/g;
+    const regex = /\${1,2}([^\$]+)\${1,2}/g;
     const matches = htmlString.match(regex);
     if (matches) {
         matches.forEach((match) => {
@@ -189,6 +191,7 @@ function latexToImage(latexString) {
 
     return `<img class="latexImage" src="${imageUrl}" alt="${trimmedLatex}" style="filter:${filter}" />`;
 }
+
 
 
 const today = new Date();
