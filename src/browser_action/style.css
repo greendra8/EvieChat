@@ -485,9 +485,13 @@ input:checked+.slider:before {
     font-family: "Source Sans Pro", sans-serif;
 }
 
+[data-theme="dark"] body {
+    position: relative;
+    z-index: 1;
+}
+
 [data-theme="dark"] #logo {
-    box-shadow:  27px 27px 54px #2d4751,
-    -27px -27px 54px #69a7bd;
+    box-shadow: 6px 4px 62px #2d4751, -5px -3px 110px #69a7bd;
     border-radius: 50%;
 }
 
@@ -518,16 +522,21 @@ input:checked+.slider:before {
 
 [data-theme="dark"] #header,
 [data-theme="dark"] form,
-[data-theme="dark"] #settings,
 [data-theme="dark"] #chatBar {
     background-color: #1c1f2a;
     color: #fff;
     border-color: #252a37;
+    position: relative;
+    z-index: -1;
 }
 
 [data-theme="dark"] #settings {
+    background-color: #1c1f2a;
+    color: #fff;
+    border-color: #252a37;
     box-shadow:  16px 16px 32px #0b0c11,
              -16px -16px 32px #2d324370;
+    z-index: 2;
 }
 
 [data-theme="dark"] body {
@@ -550,6 +559,8 @@ input:checked+.slider:before {
     font-size: 1.2em;
     color: #eee;
     padding: 2px 6px;
+    position: relative;
+    z-index: 1;
 }
 
 
