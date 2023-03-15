@@ -9,7 +9,7 @@ body {
 }
 
 #header {
-    padding: 5px;
+    padding: 2px 5px 8px 5px;
     background-color: #eee;
     border-bottom: 1px solid #ccc;
 }
