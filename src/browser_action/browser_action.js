@@ -196,7 +196,13 @@ function latexToImage(latexString) {
 
 const today = new Date();
 const date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
-const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+let hours = today.getHours();
+const amPm = hours >= 12 ? 'PM' : 'AM';
+hours = hours % 12;
+hours = hours ? hours : 12;
+const minutes = today.getMinutes().toString().padStart(2, '0');
+const seconds = today.getSeconds().toString().padStart(2, '0');
+const time = hours + ':' + minutes + ':' + seconds + ' ' + amPm;
 const dateTime = time + ' ' + date;
 
 // system message to give context to the chatbot
