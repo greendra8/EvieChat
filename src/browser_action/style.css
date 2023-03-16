@@ -587,7 +587,7 @@ input:checked+.slider:before {
 }
 
 [data-theme="dark"] #closeSettings {
-    background-color: #1c1f2a;
+    background-color: #2f3850ab;
     border: none;
     color: #fff;
 }
