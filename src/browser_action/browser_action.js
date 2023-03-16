@@ -122,7 +122,11 @@ openSettings.addEventListener('click', function() {
 const closeSettings = document.getElementById('closeSettings');
 closeSettings.addEventListener('click', function() {
     const settings = document.getElementById('settings');
-    settings.style.display = 'none';
+    settings.style.opacity = '0';
+    setTimeout(function() {
+        settings.style.display = 'none';
+    }, 200);
+    
     const blur = document.getElementById('content');
     // delete blur 
     blur.style.filter = 'blur(0px)';
