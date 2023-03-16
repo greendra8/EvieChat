@@ -4,7 +4,6 @@ showdown.setOption('tables', true);
 showdown.setOption('literalMidWordUnderscores', true);
 
 // online check
-
 function statusCheck() {
     const statusElement = document.getElementById('status');
     fetch(url)
@@ -13,6 +12,7 @@ function statusCheck() {
                 // API is online
                 statusElement.textContent = 'Online Now';
                 statusElement.style.color = '';
+                console.log("API check successful. Ignore 401 error.")
             } else {
                 // API is offline
                 statusElement.textContent = 'Offline';
@@ -25,11 +25,11 @@ function statusCheck() {
             statusElement.style.color = '#ff4b4b';
         });
 }
-
 statusCheck();
 setInterval(statusCheck, 20000);
 
-// user settings
+
+//////////////////////////  user settings //////////////////////////
 
 // set up dark mode
 // auto enable dark mode
@@ -37,8 +37,8 @@ if (localStorage.getItem('theme') === null) {
     localStorage.setItem('theme', 'dark');
 }
 
+// handle theme switch
 const toggleSwitch = document.querySelector('.switch input[type="checkbox"]');
-
 function switchTheme(e) {
     if (e.target.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -48,8 +48,7 @@ function switchTheme(e) {
         for (let i = 0; i < latexImage.length; i++) {
             latexImage[i].style.filter = 'invert(1)';
         }
-    }
-    else {
+    } else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
         // remove filter on latexImage
@@ -60,9 +59,9 @@ function switchTheme(e) {
     }
 }
 
+// set theme and toggle on page load
 toggleSwitch.addEventListener('change', switchTheme, false);
 const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-
 if (currentTheme) {
     document.documentElement.setAttribute('data-theme', currentTheme);
 
@@ -70,7 +69,6 @@ if (currentTheme) {
         toggleSwitch.checked = true;
     }
 }
-
 
 // check if userName and apiKey are saved
 if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
@@ -81,7 +79,7 @@ if (localStorage.getItem('userName') && localStorage.getItem('apiKey')) {
     settings.style.display = 'block';
 }
 
-// if manifest exists, set version number
+// if manifest exists, set version number in settings
 if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifest) {
     const manifest = chrome.runtime.getManifest();
     const version = manifest.version;
@@ -92,9 +90,9 @@ if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifes
     versionElement.style.display = 'none';
 }
 
-// open settings menu when settings button is clicked
+// handle open settings button
 const openSettings = document.getElementById('openSettings');
-openSettings.addEventListener('click', function () {
+openSettings.addEventListener('click', function() {
     const settings = document.getElementById('settings');
     settings.style.display = 'block';
     const inputName = document.getElementById('inputName');
@@ -105,16 +103,16 @@ openSettings.addEventListener('click', function () {
     }
 });
 
-// close settings menu when close button is clicked
+// handle close settings button
 const closeSettings = document.getElementById('closeSettings');
-closeSettings.addEventListener('click', function () {
+closeSettings.addEventListener('click', function() {
     const settings = document.getElementById('settings');
     settings.style.display = 'none';
 });
 
 // handle settings form submission
 const settingsForm = document.getElementById('settingsForm');
-settingsForm.addEventListener('submit', function (event) {
+settingsForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const inputName = document.getElementById('inputName').value;
     const inputAPIKey = document.getElementById('inputAPIKey').value;
@@ -128,8 +126,7 @@ settingsForm.addEventListener('submit', function (event) {
     }
 });
 
-// chat functionality
-
+////////////////////////// chat functionality ///////////////////////
 const chatLog = document.getElementById('chatLog');
 const chatForm = document.getElementById('chatForm');
 
@@ -137,7 +134,7 @@ let messages = [];
 
 // clear chat log when clear chat button is clicked
 const clearChat = document.getElementById('clearChat');
-clearChat.addEventListener('click', function () {
+clearChat.addEventListener('click', function() {
     messages.splice(1, messages.length - 1);
     localStorage.removeItem('messages');
     chatLog.innerHTML = '';
@@ -145,7 +142,7 @@ clearChat.addEventListener('click', function () {
 });
 
 // handle new line on shift + enter
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", function(event) {
     if (event.shiftKey && event.keyCode === 13) {
         event.preventDefault();
         // Get the cursor position in the input field
@@ -165,7 +162,7 @@ function markdownToHtml(markdownString) {
     return converter.makeHtml(markdownString);
 }
 
-function replaceRegexWithImage(htmlString) {
+function replaceLatexWithImage(htmlString) {
     const regex = /\${1,2}([^\$]+)\${1,2}/g;
     const matches = htmlString.match(regex);
     if (matches) {
@@ -191,8 +188,6 @@ function latexToImage(latexString) {
 
     return `<img class="latexImage" src="${imageUrl}" alt="${trimmedLatex}" style="filter:${filter}" />`;
 }
-
-
 
 const today = new Date();
 const date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
@@ -259,12 +254,12 @@ function loadFromLocalStorage() {
         const savedMessages = JSON.parse(localStorage.getItem('messages'));
 
         // for every message except the first one (which is system message), create a new div and add it to the chat log
-        savedMessages.slice(1).forEach(function (message) {
+        savedMessages.slice(1).forEach(function(message) {
             messages.push(message);
             // set messageContent to the markdown converted to HTML
             messageContent = markdownToHtml(`${message.role === 'user' ? '\\>> <b>' + userName + '</b>: ' : '<b>Evie:</b> '}` + message.content);
             // detect LateX and convert to image
-            messageContent = replaceRegexWithImage(messageContent)
+            messageContent = replaceLatexWithImage(messageContent)
             const chatMessage = document.createElement('div');
             chatMessage.className = 'chatMessage ' + message.role;
             chatMessage.innerHTML = `${messageContent}`;
@@ -280,15 +275,18 @@ function loadFromLocalStorage() {
 
 loadFromLocalStorage();
 // wait for content to load before scrolling to the bottom of the chat log
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
     chatLog.scrollTop = chatLog.scrollHeight;
 });
 
-chatForm.addEventListener('submit', function (event) {
+chatForm.addEventListener('submit', function(event) {
     event.preventDefault();
     var userMessage = document.getElementById('inputMessage').value;
     userMessage = userMessage.charAt(0).toUpperCase() + userMessage.slice(1);
-    messages.push({ "role": "user", "content": userMessage });
+    messages.push({
+        "role": "user",
+        "content": userMessage
+    });
 
     // if messages array has more than n elements, remove the second and third elements (must be removed in pairs)
     if (messages.length > 25) {
@@ -312,11 +310,11 @@ chatForm.addEventListener('submit', function (event) {
 
     const fadeInTime = 500; // milliseconds
 
-    const fadeIn = function (element, duration) {
+    const fadeIn = function(element, duration) {
         element.style.opacity = '0';
         element.style.display = 'block';
         let start = null;
-        const step = function (timestamp) {
+        const step = function(timestamp) {
             if (!start) start = timestamp;
             const progress = timestamp - start;
             element.style.opacity = Math.min(progress / duration, 1);
@@ -330,21 +328,21 @@ chatForm.addEventListener('submit', function (event) {
 
     fadeIn(userChatMessage, fadeInTime);
     // wait for user message to fade in before fading in assistant message
-    setTimeout(function () {
+    setTimeout(function() {
         fadeIn(assistantChatMessage, fadeInTime);
     }, fadeInTime - 100);
 
     fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-            model: model,
-            messages: messages
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: model,
+                messages: messages
+            })
         })
-    })
         .then(response => response.json())
         .then(data => {
             const message = data.choices[0].message;
@@ -369,13 +367,12 @@ chatForm.addEventListener('submit', function (event) {
 
             // format response text
             responseText = markdownToHtml(`<b>Evie: </b> ${responseText}`);
-            responseText = replaceRegexWithImage(responseText);
+            responseText = replaceLatexWithImage(responseText);
 
             // calculate cost where 1000 tokens = $0.002
             const cost = totalTokens / 500000;
             document.getElementById('cost').innerText = cost;
 
-            // assistantChatMessage.innerHTML = `<p><b>Evie: </b> ${responseText}</p>`;
             assistantChatMessage.innerHTML = `${responseText}`;
             hljs.highlightAll();
             chatLog.scrollTop = chatLog.scrollHeight;
