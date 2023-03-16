@@ -660,3 +660,7 @@ input:checked+.slider:before {
 [data-theme="dark"] ::-webkit-scrollbar-thumb {
     background-color: #47516b;
 }
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background-color: #161820;
+}
