@@ -487,6 +487,8 @@ input:checked+.slider:before {
 }
 
 [data-theme="dark"] body {
+    background-color: #1c1f2a;
+    color: #fff;
     position: relative;
     z-index: 1;
 }
@@ -497,7 +499,10 @@ input:checked+.slider:before {
 }
 
 [data-theme="dark"] #chatLog {
+    background-color: #1c1f2a;
     height: 333px;
+    position: relative;
+    z-index: 6;
 }
 
 [data-theme="dark"] .chatMessage p {
@@ -528,7 +533,7 @@ input:checked+.slider:before {
     color: #fff;
     border-color: #252a37;
     position: relative;
-    z-index: -1;
+    z-index: 5;
 }
 
 [data-theme="dark"] #settings {
@@ -561,7 +566,7 @@ input:checked+.slider:before {
     color: #eee;
     padding: 2px 6px;
     position: relative;
-    z-index: 1;
+    z-index: 6;
 }
 
 
