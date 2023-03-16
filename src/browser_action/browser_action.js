@@ -401,6 +401,11 @@ chatForm.addEventListener('submit', function(event) {
             hljs.highlightAll();
             chatLog.scrollTop = chatLog.scrollHeight;
         })
-        .catch(error => console.error(error));
+        // if there is an error, log it to the console and display an error message to the user from assistant
+        .catch(error => {
+            console.error('Error:', error);
+            assistantChatMessage.innerHTML = '<p><b>Evie: </b>There was an error processing your request. Please check your API key, internet connection, or try again later.</p>';
+            chatLog.scrollTop = chatLog.scrollHeight;
+        });
     document.getElementById('inputMessage').value = '';
 });
