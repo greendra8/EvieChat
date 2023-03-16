@@ -539,8 +539,8 @@ input:checked+.slider:before {
 [data-theme="dark"] #settings {
     background-color: #1c1f2a;
     color: #fff;
-    border-color: #252a37;
-    box-shadow:  16px 16px 32px #0b0c11,
+    border: 1px solid #252a37;
+    box-shadow:  16px 16px 32px #0b0c112e,
              -16px -16px 32px #2d324370;
     z-index: 2;
 }
