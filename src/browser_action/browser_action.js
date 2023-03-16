@@ -94,9 +94,24 @@ if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifes
 const openSettings = document.getElementById('openSettings');
 openSettings.addEventListener('click', function() {
     const settings = document.getElementById('settings');
+    // fade in settings
+    settings.style.opacity = '0';
     settings.style.display = 'block';
+    settings.style.transition = 'opacity 0.3s';
+    setTimeout(function() {
+        settings.style.opacity = '1';
+    }, 10);
     const inputName = document.getElementById('inputName');
     const inputAPIKey = document.getElementById('inputAPIKey');
+    // fade in blur of #content
+    const blur = document.getElementById('content');
+    blur.style.filter = 'blur(0px)'; 
+    blur.style.transition = 'filter 0.3s'; 
+    blur.style.filter = 'blur(0.8px)';
+    // make content uninteractable
+    blur.style.pointerEvents = 'none';
+    blur.style.userSelect = 'none';
+
     if (userName !== undefined && apiKey !== undefined) {
         inputName.value = userName;
         inputAPIKey.value = apiKey;
@@ -108,6 +123,11 @@ const closeSettings = document.getElementById('closeSettings');
 closeSettings.addEventListener('click', function() {
     const settings = document.getElementById('settings');
     settings.style.display = 'none';
+    const blur = document.getElementById('content');
+    // delete blur 
+    blur.style.filter = 'blur(0px)';
+    blur.style.pointerEvents = 'auto';
+    blur.style.userSelect = 'auto';
 });
 
 // handle settings form submission
