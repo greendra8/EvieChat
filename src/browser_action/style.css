@@ -545,11 +545,6 @@ input:checked+.slider:before {
     z-index: 2;
 }
 
-[data-theme="dark"] body {
-    background-color: #1c1f2a;
-    color: #fff;
-}
-
 [data-theme="dark"] .assistant {
     background-color: #2f3850;
     border: none;
@@ -568,7 +563,6 @@ input:checked+.slider:before {
     position: relative;
     z-index: 6;
 }
-
 
 [data-theme="dark"] input {
     height: 18.8px;
