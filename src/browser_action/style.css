@@ -571,6 +571,7 @@ input:checked+.slider:before {
 
 
 [data-theme="dark"] input {
+    height: 18.8px;
     background-color: #2f3850;
     border: none;
     color: #fff;
