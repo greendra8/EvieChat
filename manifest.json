@@ -5,8 +5,7 @@
   "description": "EvieChat is a ChatGPT powered personal assistant that can talk to you about anything.",
   "homepage_url": "http://arinteli.com",
   "permissions": [
-    "contextMenus",
-    "audioCapture"
+    "contextMenus"
   ], 
   "icons": {
     "16": "icons/icon16.png",
