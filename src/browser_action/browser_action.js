@@ -281,9 +281,14 @@ function loadFromLocalStorage() {
         savedMessages.slice(1).forEach(function(message) {
             messages.push(message);
             // set messageContent to the markdown converted to HTML
-            messageContent = markdownToHtml(`${message.role === 'user' ? '\\>> <b>' + userName + '</b>: ' : '<b>Evie:</b> '}` + message.content);
-            // detect LateX and convert to image
-            messageContent = replaceLatexWithImage(messageContent)
+            if (message.role === 'assistant') {
+            messageContent = markdownToHtml(`<b>Evie: </b>` + message.content);
+                // detect LateX and convert to image
+                messageContent = replaceLatexWithImage(messageContent)
+            } else {
+                message.content = message.content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                messageContent = markdownToHtml(`\\>> <b>${userName}: </b>` + message.content);
+            }
             const chatMessage = document.createElement('div');
             chatMessage.className = 'chatMessage ' + message.role;
             chatMessage.innerHTML = `${messageContent}`;
