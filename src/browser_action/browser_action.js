@@ -308,6 +308,66 @@ window.addEventListener('load', function() {
     chatLog.scrollTop = chatLog.scrollHeight;
 });
 
+
+// record audio
+
+// const micButton = document.getElementById('micButton');
+// let mediaRecorder;
+// let audioChunks = [];
+
+// micButton.addEventListener('click', toggleRecording);
+
+// function toggleRecording() {
+//   if (mediaRecorder && mediaRecorder.state === 'recording') {
+//     mediaRecorder.stop();
+//     console.log('MediaRecorder stopped', mediaRecorder);
+//     return;
+//   }
+
+//   navigator.mediaDevices.getUserMedia({ audio: true })
+//     .then(stream => {
+//       console.log('Got media stream:', stream);
+//       mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+//       console.log('Created MediaRecorder', mediaRecorder, 'with options', { mimeType: 'audio/webm' });
+//       mediaRecorder.start();
+//       console.log('MediaRecorder started', mediaRecorder);
+//       audioChunks = [];
+//       mediaRecorder.addEventListener('dataavailable', event => {
+//         audioChunks.push(event.data);
+//       });
+//       mediaRecorder.addEventListener('stop', () => {
+//         const audioBlob = new Blob(audioChunks);
+//         console.log('audioBlob', audioBlob);
+//         sendTranscriptionRequest(audioBlob);
+//       });
+//     });
+// }
+
+// function sendTranscriptionRequest(audioBlob) {
+//     const apiUrl = 'https://api.openai.com/v1/audio/transcriptions';
+//     const formData = new FormData();
+//     formData.append('model', 'whisper-1');
+//     formData.append('file', audioBlob, 'audio.webm'); // Set the filename to 'audio.webm'
+//     fetch(apiUrl, {
+//       method: 'POST',
+//       headers: {
+//         'Authorization': `Bearer ${apiKey}`
+//       },
+//       body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//       // send data to inputMessage input element
+//       document.getElementById('inputMessage').value = data.text;
+
+//     })
+//     .catch(error => {
+//       console.error('Error:', error);
+//     });
+//   }
+  
+  
+
 chatForm.addEventListener('submit', function(event) {
     event.preventDefault();
     var userMessage = document.getElementById('inputMessage').value;
@@ -321,6 +381,9 @@ chatForm.addEventListener('submit', function(event) {
     if (messages.length > 25) {
         messages.splice(2, 2);
     }
+
+    // prevent html injection
+    userMessage = userMessage.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
     const userChatMessage = document.createElement('div');
     userChatMessage.className = 'chatMessage user';
