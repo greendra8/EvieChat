@@ -517,7 +517,6 @@ input:checked+.slider:before {
     color: #eee;
     font-size: 1em;
     line-height: 1.6 !important;
-    margin-top: -1px;
 }
 
 
