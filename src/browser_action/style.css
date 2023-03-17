@@ -4,8 +4,8 @@
 }
 
 body {
-    min-height: 453px;
-    min-width: 600px;
+    height: 453px;
+    width: 600px;
 }
 
 #header {
@@ -30,7 +30,7 @@ body {
 
 #logo {
     height: 30px;
-    top: 7px;
+    top: 12px;
     left: 3px;
     position: relative;
 }
@@ -174,6 +174,18 @@ input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 3px;
 }
+
+#micButton {
+    position: absolute;
+    right: 146px;
+    top: 3px;
+    width: 40px;
+    height: 40px;
+    z-index: 6;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
 
 button[type="submit"] {
     margin-left: auto;
@@ -493,11 +505,6 @@ input:checked+.slider:before {
     z-index: 1;
 }
 
-[data-theme="dark"] #logo {
-    box-shadow: 6px 4px 62px #2d4751, -5px -3px 110px #69a7bd;
-    border-radius: 50%;
-}
-
 [data-theme="dark"] #chatLog {
     background-color: #1c1f2a;
     height: 333px;
@@ -570,6 +577,8 @@ input:checked+.slider:before {
     border: none;
     color: #fff;
     line-height: 1.45em;
+    position: relative;
+    z-index: 6;
 }
 
 [data-theme="dark"] input:focus {
